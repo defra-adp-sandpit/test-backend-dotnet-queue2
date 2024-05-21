@@ -1,0 +1,16 @@
+services:
+  test-backend-dotnet-queue2:
+    build:
+      target: development
+    image: test-backend-dotnet-queue2-development
+    container_name: test-backend-dotnet-queue2-test
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./Test.Backend.Dotnet.Queue2.sln:/home/dotnet/Test.Backend.Dotnet.Queue2.sln
+      - ./src/Test.Backend.Dotnet.Queue2.Core:/home/dotnet/src/Test.Backend.Dotnet.Queue2.Core
+      - ./test/Test.Backend.Dotnet.Queue2.Core.Tests:/home/dotnet/test/Test.Backend.Dotnet.Queue2.Core.Tests
+      - ./src/Test.Backend.Dotnet.Queue2.Api:/home/dotnet/src/Test.Backend.Dotnet.Queue2.Api
+      - ./test/Test.Backend.Dotnet.Queue2.Api.Tests:/home/dotnet/test/Test.Backend.Dotnet.Queue2.Api.Tests
+      - ./test/Test.Backend.Dotnet.Queue2.Api.Tests/test-output:/home/dotnet/test/Test.Backend.Dotnet.Queue2.Api.Tests/test-output
+      - ./test/Test.Backend.Dotnet.Queue2.Core.Tests/test-output:/home/dotnet/test/Test.Backend.Dotnet.Queue2.Core.Tests/test-output

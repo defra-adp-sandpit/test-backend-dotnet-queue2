@@ -1,0 +1,10 @@
+services:
+  test-backend-dotnet-queue2:
+    build:
+      context: .
+      target: production
+    image: test-backend-dotnet-queue2
+    container_name: test-backend-dotnet-queue2
+    environment:
+      AppInsights__ConnectionString: ${APPINSIGHTS_CONNECTIONSTRING}
+      AppInsights__CloudRole: test-backend-dotnet-queue2-local
